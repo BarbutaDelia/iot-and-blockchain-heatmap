@@ -14,7 +14,6 @@ const pollutionData = [
   { lat: 47.168411, lng: 27.615574, pollution: 25 },
   { lat: 47.168033, lng: 27.614536, pollution: 30 },
   { lat: 47.166602, lng: 27.616414, pollution: 35 },
-
   // Ezareni
   { lat: 47.118627, lng: 27.528308, pollution: 60 },
   { lat: 47.118861, lng: 27.530711, pollution: 65 },
@@ -56,7 +55,7 @@ const map = new ol.Map({
   ],
   view: new ol.View({
     center: ol.proj.fromLonLat([27.6014, 47.1585]), // Center = IAsi
-    zoom: 13,
+    zoom: 12,
   }),
 });
 

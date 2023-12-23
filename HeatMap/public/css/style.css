@@ -1,0 +1,7 @@
+.map {
+  height: calc(100vh - 2rem);
+}
+.sidebar {
+  height: calc(100vh); 
+  /* padding-top: 1rem;  */
+}

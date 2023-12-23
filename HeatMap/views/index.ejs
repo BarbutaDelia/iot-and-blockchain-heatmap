@@ -1,2 +1,42 @@
-<div id="map" class="map"></div>
+<div class="d-flex flex-nowrap bg-dark text-white">
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+        <!-- Branding -->
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <i class="bi-pin-fill bi me-2" style="font-size: 2rem;"></i>
+            <span class="fs-4">Heat Map</span>
+        </a>
+        <hr>
+        <!-- Nav items using Bootstrap Icons -->
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" aria-current="page">
+                    <i class="bi-info-circle-fill bi pe-none me-2"></i>
+                    Details
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white">
+                    <i class="bi-clock-fill bi pe-none me-2"></i>
+                    History
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <!-- Profile Dropdown -->
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none" 
+                data-bs-toggle="dropdown" aria-expanded="true">
+                <strong width="32" class="text-dark">.</strong>
+            </a>
+        </div>
+    </div>
+
+    <!-- Map Column -->
+    <div class="col p-3">
+        <div id="map" class="map"></div>
+    </div>
+</div>
+
+
 <script type="module" src="../js/heatmap.js"></script>
