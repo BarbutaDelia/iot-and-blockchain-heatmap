@@ -1,29 +1,37 @@
 <div class="d-flex flex-nowrap bg-dark text-white">
     <!-- Sidebar -->
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-        <!-- Branding -->
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <i class="bi-pin-fill bi me-2" style="font-size: 2rem;"></i>
             <span class="fs-4">Heat Map</span>
         </a>
         <hr>
-        <!-- Nav items using Bootstrap Icons -->
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
-                    <i class="bi-info-circle-fill bi pe-none me-2"></i>
-                    Details
-                </a>
+              <a href="#detailsContent" class="nav-link text-white" aria-current="page" data-bs-toggle="collapse">
+                <i class="bi-info-circle-fill bi pe-none me-2"></i>
+                Details
+              </a>
+              <div class="collapse show" id="detailsContent">
+                <div class="p-3">
+                  This map displays the pollution levels recorded by sensors deployed in water.
+                </div>
+              </div>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
-                    <i class="bi-clock-fill bi pe-none me-2"></i>
-                    History
-                </a>
+              <a href="#historyContent" class="nav-link text-white" data-bs-toggle="collapse">
+                <i class="bi-clock-fill bi pe-none me-2"></i>
+                History
+              </a>
+              <div class="collapse" id="historyContent">
+                <div class="p-3">
+                  Historical data of pollution levels will be shown here.
+                </div>
+              </div>
             </li>
-        </ul>
+          </ul>
         <hr>
-        <!-- Profile Dropdown -->
+        <!-- Footer for sidebar -->
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none" 
                 data-bs-toggle="dropdown" aria-expanded="true">
@@ -32,11 +40,10 @@
         </div>
     </div>
 
-    <!-- Map Column -->
+    <!-- Map -->
     <div class="col p-3">
         <div id="map" class="map"></div>
     </div>
 </div>
-
 
 <script type="module" src="../js/heatmap.js"></script>
