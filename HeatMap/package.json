@@ -11,6 +11,7 @@
     "web3": "^4.3.0"
   },
   "devDependencies": {
+    "hardhat": "^2.19.4",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   }

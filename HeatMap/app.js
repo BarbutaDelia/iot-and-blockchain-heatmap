@@ -14,20 +14,43 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/ol', express.static('node_modules/ol'));
 
 const { Web3 } = require('web3');
-const { contractAbi, contractAddress } = require('./public/js/config');
+const { contractAbi, contractAddress, precision } = require('./public/js/config');
 
-app.get('/', async (req, res) => {
+app.get('/pollution', async (req, res) => {
     const web3 = new Web3('https://sepolia.infura.io/v3/39f30b6a2b9f47bb9e8cf329374cbbb8');
     const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
     try {
-        const sensorsData = await contract.methods.getSensors().call();
-		console.log(sensorsData);
-        res.render('index', { pollutionData: sensorsData });
+        let sensorsData = await contract.methods.getSensors().call();
+		let processedData = sensorsData.map(sensor => {
+            // lat and lng are stored as integers on the blockchain and need to be converted
+            let latitude = parseInt(sensor.latitude) / precision;
+            let longitude = parseInt(sensor.longitude) / precision;
+            
+            // Get the latest pollution data
+            let latestPollutionData = sensor.pollutionData.length > 0 ? Number(sensor.pollutionData[sensor.pollutionData.length - 1].pollutionLevel) : null;
+            
+            // Get the timestamp of the last sensor read
+            let dataCollectionTimestamp = sensor.pollutionData[sensor.pollutionData.length - 1].timestamp.toString();
+
+            return {
+                companyName: sensor.companyName,
+                lat: latitude,
+                lng: longitude,
+                pollution: latestPollutionData,
+                timestamp: dataCollectionTimestamp
+            };
+        }).filter(sensor => sensor.pollution !== null);
+        console.log(processedData);
+        res.json(processedData);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error fetching data from the blockchain');
     }
+});
+
+app.get('/', async (req, res) => {
+    res.render('index');
 });
 
 
