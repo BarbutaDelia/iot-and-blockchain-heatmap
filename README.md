@@ -30,7 +30,7 @@ nodemon app.js
 ## Technologies and Libraries
 
 - **Ethereum Blockchain**: For storing pollution data.
-- - **Web3.js**: Ethereum JavaScript API for interacting with the Ethereum blockchain.
+- **Web3.js**: Ethereum JavaScript API for interacting with the Ethereum blockchain.
 - **Express.js**: Web application framework for Node.js.
 - **EJS**: Templating engine to generate HTML markup with plain JavaScript.
 - **Bootstrap**: For styling and responsive design.
