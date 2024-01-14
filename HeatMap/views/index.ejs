@@ -15,13 +15,15 @@
               <div class="collapse show" id="detailsContent">
                 <div class="p-3">
                   This map displays the pollution levels recorded by sensors deployed in water.
+                  Hover the elements for more information.
                 </div>
+                  
               </div>
             </li>
             <li>
               <a href="#historyContent" class="nav-link text-white" data-bs-toggle="collapse">
                 <i class="bi-clock-fill bi pe-none me-2"></i>
-                History
+                Statistics
               </a>
               <div class="collapse" id="historyContent">
                 <div class="p-3">
@@ -44,6 +46,9 @@
     <div class="col p-3">
         <div id="map" class="map"></div>
     </div>
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="ol-tooltip"></div>
 </div>
 
 <script type="module" src="../js/heatmap.js"></script>

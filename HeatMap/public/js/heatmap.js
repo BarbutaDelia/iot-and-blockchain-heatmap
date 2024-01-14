@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", function(){
   fetch('/pollution') 
     .then(response => response.json())
     .then(pollutionData => {
-      initializeHeatMap(pollutionData);
-      console.log(pollutionData);
+      initializeHeatMap(pollutionData.processedData);
+      updateStatistics(pollutionData.averagePollutionByCompany);
       handleSideBarCollapse();
       setInitialState();
     })
@@ -14,19 +14,17 @@ function initializeHeatMap(pollutionData){
   const blur = 1;
   const radius = 25;
   const maxPollution = 100;
-  let context = 0;
   // Convert the values to points & weights
   const features = pollutionData.map(item => {
-    context++;
-    console.log(`Processing: Lat: ${item.lat}, Lng: ${item.lng}, Pollution: ${item.pollution}`);
     const feature = new ol.Feature({
       geometry: new ol.geom.Point(ol.proj.fromLonLat([item.lng, item.lat])),
       weight: item.pollution / maxPollution, // Normalization
+      companyName: item.companyName, // To show in the tooltip
+      pollutionHistory: item.pollutionHistory
     });
     return feature;
   });
 
-  console.log(context);
   // Gather the features in a vector
   const vectorSource = new ol.source.Vector({
     features: features,
@@ -53,8 +51,50 @@ function initializeHeatMap(pollutionData){
       zoom: 12,
     }),
   });  
+  handleTooltip(map, maxPollution);
 }
 
+function handleTooltip(map, maxPollution){
+  const tooltipElement = document.getElementById('tooltip');
+  const tooltipOverlay = new ol.Overlay({
+    element: tooltipElement,
+    offset: [10, 0],
+    positioning: 'bottom-left'
+  });
+  map.addOverlay(tooltipOverlay);
+
+  // Add hover interaction
+  map.on('pointermove', function(evt) {
+    const feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+      return feature;
+    });
+
+    if (feature) {
+      let companyName = feature.get('companyName');
+      let pollutionLevel = feature.get('weight') * maxPollution; 
+      let pollutionHistory = feature.get('pollutionHistory');
+  
+      let tooltipContent = `Responsible company: ${companyName}<br>Pollution level: ${pollutionLevel.toFixed(2)} out of ${maxPollution}`;
+      
+      if (pollutionHistory && pollutionHistory.length > 1) {
+        let lastReading = pollutionHistory[pollutionHistory.length - 1];
+        let secondLastReading = pollutionHistory[pollutionHistory.length - 2];
+  
+        let change = ((lastReading - secondLastReading) / secondLastReading) * 100;
+        let arrow = change >= 0 ? '⬆' : '⬇'; 
+        let color = change >= 0 ? 'red' : 'green';
+  
+        tooltipContent += `<br><span style="color: ${color};">${arrow} ${Math.abs(change.toFixed(2))}%</span>`;
+      }
+
+      tooltipElement.innerHTML = tooltipContent;
+      tooltipOverlay.setPosition(evt.coordinate);
+      tooltipElement.style.display = 'block';
+    } else {
+      tooltipElement.style.display = 'none';
+    }
+  });
+}
 function handleSideBarCollapse() {
   var myCollapseElements = document.querySelectorAll('.collapse');
   myCollapseElements.forEach(function (collapseEl) {
@@ -94,4 +134,17 @@ function setInitialState() {
     });
     collapseInstance.show();
   }
+}
+
+function updateStatistics(averagePollutionData) {
+  const historyContentElement = document.getElementById('historyContent');
+  let content = '<div class="p-3">';
+
+  for (let companyName in averagePollutionData) {
+    let avgPollution = averagePollutionData[companyName].toFixed(2);
+    content += `<p><strong>${companyName}:</strong> Average Pollution - ${avgPollution}</p>`;
+  }
+
+  content += '</div>';
+  historyContentElement.innerHTML = content;
 }
