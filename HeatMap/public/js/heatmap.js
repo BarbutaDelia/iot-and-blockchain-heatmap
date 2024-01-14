@@ -1,8 +1,11 @@
+import {maxPollution } from './configES6.js';
+
 document.addEventListener("DOMContentLoaded", function(){
   fetch('/pollution') 
     .then(response => response.json())
     .then(pollutionData => {
-      initializeHeatMap(pollutionData.processedData);
+      let map = initializeHeatMap(pollutionData.processedData);
+      handleTooltip(map);
       updateStatistics(pollutionData.averagePollutionByCompany);
       handleSideBarCollapse();
       setInitialState();
@@ -10,10 +13,9 @@ document.addEventListener("DOMContentLoaded", function(){
     .catch(error => console.error('Error fetching data:', error));
 });
 
-function initializeHeatMap(pollutionData){
+export function initializeHeatMap(pollutionData){
   const blur = 1;
   const radius = 25;
-  const maxPollution = 100;
   // Convert the values to points & weights
   const features = pollutionData.map(item => {
     const feature = new ol.Feature({
@@ -51,10 +53,10 @@ function initializeHeatMap(pollutionData){
       zoom: 12,
     }),
   });  
-  handleTooltip(map, maxPollution);
+  return map;
 }
 
-function handleTooltip(map, maxPollution){
+export function handleTooltip(map){
   const tooltipElement = document.getElementById('tooltip');
   const tooltipOverlay = new ol.Overlay({
     element: tooltipElement,
@@ -95,7 +97,7 @@ function handleTooltip(map, maxPollution){
     }
   });
 }
-function handleSideBarCollapse() {
+export function handleSideBarCollapse() {
   var myCollapseElements = document.querySelectorAll('.collapse');
   myCollapseElements.forEach(function (collapseEl) {
     collapseEl.addEventListener('show.bs.collapse', function () {
@@ -119,7 +121,7 @@ function handleSideBarCollapse() {
   });
 }
 
-function setInitialState() {
+export function setInitialState() {
   // Details should be active, by default
   var detailsNavLink = document.querySelector('.nav-link[href="#detailsContent"]');
   if (detailsNavLink) {
@@ -136,7 +138,7 @@ function setInitialState() {
   }
 }
 
-function updateStatistics(averagePollutionData) {
+export function updateStatistics(averagePollutionData) {
   const historyContentElement = document.getElementById('historyContent');
   let content = '<div class="p-3">';
 
