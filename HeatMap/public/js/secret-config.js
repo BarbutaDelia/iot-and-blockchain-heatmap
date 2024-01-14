@@ -1,0 +1,1 @@
+const privateKey = "7fadfaa23d7dfff1eaa29ee2520c6c2c0614beceed8daa10308743acc869d90d";
