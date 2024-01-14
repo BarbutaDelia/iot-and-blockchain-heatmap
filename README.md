@@ -1,5 +1,6 @@
 # iot-and-blockchain-heatmap
 Description
+
 This project is a solution designed to foster environmental responsibility by creating a public heatmap of pollution levels. This project leverages the Ethereum blockchain for recording water pollution data at key points, particularly where companies dispose of waste. The use of blockchain technology ensures immutability and transparency of the data. Users can view a heatmap of the pollution levels and access various statistics derived from this data.
 
 Installation
