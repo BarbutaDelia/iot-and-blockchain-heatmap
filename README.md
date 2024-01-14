@@ -29,6 +29,7 @@ or
 nodemon app.js
 
 Technologies and Libraries
+
 Ethereum Blockchain: For storing pollution data.
 Web3.js: Ethereum JavaScript API for interacting with the Ethereum blockchain.
 Express.js: Web application framework for Node.js.
@@ -38,10 +39,12 @@ OpenLayers (ol): An open-source JavaScript library for displaying map data.
 
 
 Configuration
+
 You will need to set up an Infura project and include your project ID in the application configuration.
 Ensure that the Ethereum node or Infura project is correctly configured in the application to interact with the blockchain.
 
 Usage
+
 Once the application is running:
 
 Visit the web application via the browser to view the heatmap.
