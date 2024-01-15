@@ -2,15 +2,16 @@
 
 ## Description
 
-**This project is a solution designed to foster environmental responsibility** by creating a public heatmap of pollution levels. It leverages the Ethereum blockchain to record water pollution data at key points, particularly where companies dispose of waste. The use of blockchain technology ensures the immutability and transparency of the data. Users can view a heatmap of the pollution levels and access various statistics derived from this data.
+**This project is a solution designed to foster environmental responsibility** by creating a public, real-time heatmap of pollution levels. It leverages the Ethereum blockchain to record water pollution data at key points, particularly where companies dispose of waste. The use of blockchain technology ensures the immutability and transparency of the data. Users can view a heatmap of the pollution levels and access various statistics derived from this data.
 
 ## Installation
 
 ### Prerequisites
 
-- **Node.js**
-- An Ethereum node or an [Infura](https://infura.io/) project for connecting to the Ethereum network.
-- A package manager like npm or yarn.
+- **Node.js**: Required for running the application.
+- **Ethereum Node or Infura Project**: For connecting to the Ethereum network.
+- **Package Manager**: npm or yarn for managing dependencies.
+- **MetaMask Wallet**: For Ethereum transactions and interactions.
 
 ### Setup
 
@@ -38,7 +39,10 @@ nodemon app.js
 
 ## Configuration
 
-Set up an Infura project and include your project ID in the application configuration. Ensure that the Ethereum node or Infura project is correctly configured in the application to interact with the blockchain.
+- **Infura Project**: Set up an Infura project and include your project ID in the application configuration.
+- **Account Address and Private Key**: Add an `accountAddress` and `privateKey` for transactions on the Ethereum network.
+- **Ensure Correct Configuration**: Make sure the Ethereum node or Infura project is correctly configured in the application.
+
 
 ## Usage
 
@@ -47,4 +51,5 @@ Once the application is running:
 - Visit the web application via the browser to view the heatmap.
 - Interact with the map to view pollution data at different locations.
 - Access the "Statistics" section from the sidebar to view aggregated pollution data and trends.
+- **MetaMask Wallet**: Ensure your MetaMask wallet is connected for full interaction with the application.
 
